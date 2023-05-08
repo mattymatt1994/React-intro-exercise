@@ -1,50 +1,41 @@
 import { useState } from "react";
-import FilmsList from "./components/filmsList";
+import { HomePage, FilmsPage } from "./pages/index.js";
 import "./App.css";
+import { BrowserRouter, NavLink, Routes, Route } from "react-router-dom";
 
+function App(props) {}
 
-function App (props) {
- const [list, setList] = useState(["ready", "set", "GO"]);
- const [text, setText] = useState("");
-  //Make sure that the method is bound to this class
-  //Aka, keep Texas from leaving the Union!
-
-  function handleChange(event) {
-    setText(event.target.value);
-  }
-
-
- function onSubmit(event) {
-    event.preventDefault();
-    setList({
-      list: [...list, text],
-    });
-  }
-  
-    return (
-      <div className="App">
-        <h1>React is "okay"..</h1>
-        <form onSubmit={onSubmit}>
-          <input
-            type="text"
-            name="listInput"
-            id="listInput"
-            value={text}
-            onChange={handleChange}
-          />
-          <button type="submit">Add</button>
-        </form>
-
+return (
+  <BrowserRouter>
+    <div className="App">
+      <nav>
         <ul>
-          {list.map((item, idx) => {
-            return <li key={item + idx}>{item}</li>;
-          })}
+          <li>
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? "currPath" : null)}
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="films"
+              className={({ isActive }) => (isActive ? "currPath" : null)}
+            >
+              Films
+            </NavLink>
+          </li>
         </ul>
-        <FilmsList />
-      </div>
-    );
-  
-}
+      </nav>
+      <Routes>
+        {/* http://localhost:3000/ */}
+        <Route path="/" element={<HomePage />} />
+        {/* http://localhost:3000/films */}
+        <Route path="films" element={<FilmsPage />} />
+      </Routes>
+    </div>
+  </BrowserRouter>
+);
 
 export default App;
-

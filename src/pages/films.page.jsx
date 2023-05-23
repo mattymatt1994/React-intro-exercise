@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { filerFilmsByDirector, getListOf } from "../helpers/film.helpers";
-
+import { Link } from "react-router-dom";
 function FilmsPage(props) {
   const [list, setList] = useState([]);
   const [searchDirector, setSearchDirector] = useState("");
@@ -48,11 +48,14 @@ function FilmsPage(props) {
       </div>
       <ul>
         {list.map((film) => {
-          return <li key={film.id}>{film.title}</li>;
-        })}
+          return (
+          <li className="film-container" key={film.id}>
+          <Link to ={`/film/${film.id}`}>{film.title}</Link> 
+         </li>
+        )}
       </ul>
     </div>
   );
-}
+          }
 
 export default FilmsPage;
